@@ -20,7 +20,7 @@ class Question(TimeStampsModel):
     )
 
     quiz = models.ForeignKey(Quiz, on_delete=models.DO_NOTHING)
-    technique = models.CharField(max_length=255, choices=TYPE, default=0)
+    technique = models.IntegerField(choices=TYPE, default=0)
     title = models.CharField(max_length=255)
     difficulty = models.IntegerField(choices=SCALE)
     is_active = models.BooleanField(default=False)

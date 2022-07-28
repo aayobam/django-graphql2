@@ -14,14 +14,15 @@ class CategoryQuery(graphene.ObjectType):
     all_categories = graphene.List(CategoryType)
     category_detail = graphene.Field(CategoryType, category_id=graphene.ID())
 
-    def resolve_all_categories(self,  info, **kwargs):
+    def resolve_all_categories(root, info, **kwargs):
         return Category.objects.all()
 
-    def resolve_category_detail(self, info, category_id, **kwargs):
+    def resolve_category_detail(root, info, category_id, **kwargs):
         return Category.objects.get(id=category_id)
 
 
 class CategoryInput(graphene.InputObjectType):
+    id = graphene.ID()
     name = graphene.String()
 
     def __str__(self):
