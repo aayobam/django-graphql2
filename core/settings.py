@@ -1,16 +1,14 @@
-import os
-from pathlib import Path
-import environ
 import django
+import environ
+from pathlib import Path
 from django.utils.encoding import force_str
+
+
+
 django.utils.encoding.force_text = force_str
-
-
 
 env = environ.Env()
 environ.Env.read_env()
-
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # local apps
+    'apps.users',
     'apps.categories',
     'apps.quizzes',
     'apps.questions',
@@ -47,6 +46,7 @@ INSTALLED_APPS = [
 
     #third party apps
     'graphene_django',
+    #"graphql_jwt.refresh_token.apps.RefreshTokenConfig",
 ]
 
 MIDDLEWARE = [
@@ -136,4 +136,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 GRAPHENE ={
     "SCHEMA": "core.schema.schema",
     "ATOMIC_MUTATIONS": True,
+    "MIDDLEWARE": [
+        "graphql_jwt.middleware.JSONWebTokenMiddlewarFe",
+    ],
 }
+
+# AUTHENTICATION_BACKENDS = [
+#     "graphql_jwt.backends.JSONWebTokenBackend",
+#     "django.contrib.auth.backends.ModelBackend",
+# ]
+
+AUTH_USER_MODEL = 'users.CustomUser'
